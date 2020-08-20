@@ -51,9 +51,6 @@
   apt:
     name: opendistroforelasticsearch
     update_cache: yes
-   environment:
-    PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-  become: yes
 
 - name: configure elasticsearch 123
   template:
