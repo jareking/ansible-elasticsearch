@@ -1,14 +1,14 @@
 ---
 # tasks file for opendistro-elastic
 
-- name: configure elasticsearch hosts file
-  template:
-    src: templates/hosts.j2
-    dest: /etc/hosts
-    owner: root
-    group: root
-    mode: 0642
-  become: yes
+# - name: configure elasticsearch hosts file
+#   template:
+#     src: templates/hosts.j2
+#     dest: /etc/hosts
+#     owner: root
+#     group: root
+#     mode: 0642
+#   become: yes
 
 - name: configure resolv.conf file
   template:
