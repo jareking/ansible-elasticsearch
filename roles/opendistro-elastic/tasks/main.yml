@@ -52,17 +52,17 @@
     name: opendistroforelasticsearch
     update_cache: no
 
-- name: configure elasticsearch 123
-  template:
-    src: templates/elasticsearch.yml.j2
-    dest: /etc/elasticsearch/elasticsearch.yml
-    owner: root
-    group: elasticsearch
-    mode: 0660
-  become: yes
-  register: elasticsearch_configuration
-  notify:
-  - elasticsearch restart
+# - name: configure elasticsearch 123
+#   template:
+#     src: templates/elasticsearch.yml.j2
+#     dest: /etc/elasticsearch/elasticsearch.yml
+#     owner: root
+#     group: elasticsearch
+#     mode: 0660
+#   become: yes
+#   register: elasticsearch_configuration
+#   notify:
+#   - elasticsearch restart
 
 # - name: configure elasticsearch password file
 #   template:
