@@ -50,7 +50,7 @@
 - name: install opendistroforelasticsearch
   apt:
     name: opendistroforelasticsearch
-    update_cache: yes
+    update_cache: no
 
 - name: configure elasticsearch 123
   template:
