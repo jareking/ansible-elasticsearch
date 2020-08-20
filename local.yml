@@ -2,8 +2,8 @@
  - name: Maintain OpenDistro Elastic Configuration
    hosts: localhost 
    user: root
-   vars:
-     ansible_become_flags: "--login"
+  #  vars:
+  #    ansible_become_flags: "--login"
    vars_files:
      - group_vars/main.yml
      #- "vars/{{ Environment }}/main.yml"
