@@ -9,11 +9,14 @@
 #     group: root
 #     mode: 0642
 #   become: yes
+
+#install common packages
 - name: Install a list of packages
   apt:
     pkg:
     - zsh
     - nano
+    - facter
 
 - name: configure resolv.conf file
   template:
