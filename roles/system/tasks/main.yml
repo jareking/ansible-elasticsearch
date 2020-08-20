@@ -9,6 +9,11 @@
 #     group: root
 #     mode: 0642
 #   become: yes
+- name: Install a list of packages
+  apt:
+    pkg:
+    - zsh
+    - nano
 
 - name: configure resolv.conf file
   template:
