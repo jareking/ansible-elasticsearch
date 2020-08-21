@@ -4,7 +4,7 @@
 ::1         localhost ip6-localhost ip6-loopback
 
 # Hosts managed by playbook
-
-{% for item in groups['all'] %}
-{{ hostvars[item]['inventory_hostname'] }} {{ item }}
-{% endfor %}
+172.16.10.115 es-app-master-0697a74c421dd6bec 
+#{% for item in groups['all'] %}
+#{{ hostvars[item]['inventory_hostname'] }} {{ item }}
+#{% endfor %}
