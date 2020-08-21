@@ -1,6 +1,7 @@
 ---
  - name: Maintain OpenDistro Elastic Configuration
    hosts: localhost
+   gather_facts: yes
    user: root
   #  vars:
   #    ansible_become_flags: "--login"
