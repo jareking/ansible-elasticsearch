@@ -1,11 +1,11 @@
 ---
-- name  ipaddress_ens5
+- name:  ipaddress_ens5
   shell: /usr/bin/facter ipaddress_ens5
     register: ipaddress_ens5
     ignore_errors: True
 
 
-- name  localhost_hostname
+- name:  localhost_hostname
   shell: /usr/bin/facter hostname
     register: localhost_hostname
     ignore_errors: True
