@@ -1,14 +1,14 @@
 ---
 - name:  ipaddress_ens5
   shell: /usr/bin/facter ipaddress_ens5
-    register: ipaddress_ens5
-    ignore_errors: True
+  register: ipaddress_ens5
+  ignore_errors: True
 
 
 - name:  localhost_hostname
   shell: /usr/bin/facter hostname
-    register: localhost_hostname
-    ignore_errors: True
+  register: localhost_hostname
+  ignore_errors: True
 
 # tasks file for opendistro-elastic
 - name: configure elasticsearch hosts file
