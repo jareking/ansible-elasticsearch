@@ -17,6 +17,7 @@
     - zsh
     - nano
     - facter
+    - awscli
     - jq
 
 - name: configure resolv.conf file
