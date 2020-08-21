@@ -2,7 +2,8 @@
 # tasks file for opendistro-elastic
 - debug:
     var: result
-    
+    verbosity: 4
+
 - name: configure elasticsearch hosts file
   template:
     src: templates/hosts.j2
