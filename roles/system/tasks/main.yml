@@ -19,6 +19,7 @@
       - facter
       - awscli
       - jq
+      - mlocate
 
 - name: configure resolv.conf file
   template:
@@ -28,13 +29,18 @@
     group: root
     mode: 0644
   become: yes
+#######
+- name: Ensure group "admin" exists
+  group:
+    name: admin
+    state: present
 
 ###add jareking 
 - name: Add jareking
   user:
     name: jareking
     shell: /bin/zsh
-    #groups: admins
+    groups: admin
     append: yes
 
 - name: add jareking ssh pubkey
@@ -44,5 +50,15 @@
     key: '{{ item }}'
   with_file:
     - public_keys/jareking  
+
+# NOTE: Fully quoted because of the ': ' on the line. See the Gotchas in the YAML docs.
+- name: Validate the sudoers file before saving
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%ADMIN ALL='
+    line: '%ADMIN ALL=(ALL) NOPASSWD: ALL'
+    validate: /usr/sbin/visudo -cf %s
+Status    
 
 ########
