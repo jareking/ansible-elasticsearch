@@ -5,6 +5,6 @@
 
 # Hosts managed by playbook
 
-#{% for item in groups['all'] %}
-#{{ hostvars[item]['ansible_host'] }} {{ item }}
-#{% endfor %}
+{% for item in groups['all'] %}
+{{ hostvars[item]['ansible_host'] }} {{ item }}
+{% endfor %}
