@@ -43,10 +43,10 @@
 #       with_items: "{{groups['multi']}}"
 
 
-- name: Add the user 
+- name: Add jareking
   user:
     name: jareking
     shell: /bin/zsh
     groups: admins
     append: yes
-    ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXUDCTq7kPHxRLt9gTQNVIeTdD45+RkRTnNVMS1lyGIuoF0P+Gd7ig+AselNIbOWgQW4RVvIb/T8mitpOP5dlcCnfa3m6SRUsfrrQO+E3x0kReOuMlo0aj7bsjhx7/fc2DUCxBbF0oM5NI0JD1xaH1lJZCaY4ud0aLUh5gFl5rHSwr4tVDmK2LJmdC9X7QM5nXYMhFNG0w22SkImrGlq/WRUMw4UooN9CcnZGONldl1TUqyL5wHiFTxBZTQa0qkZJWe/VTkAeywrNlG5uvaq8fxY7X9uQY36+gg70ZUO1qf9+8olin+hYA4b/mYstxlr4a8v5288qLdmNHC5Giziuv jsking@ubuntu14.localdomain'
+    #ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXUDCTq7kPHxRLt9gTQNVIeTdD45+RkRTnNVMS1lyGIuoF0P+Gd7ig+AselNIbOWgQW4RVvIb/T8mitpOP5dlcCnfa3m6SRUsfrrQO+E3x0kReOuMlo0aj7bsjhx7/fc2DUCxBbF0oM5NI0JD1xaH1lJZCaY4ud0aLUh5gFl5rHSwr4tVDmK2LJmdC9X7QM5nXYMhFNG0w22SkImrGlq/WRUMw4UooN9CcnZGONldl1TUqyL5wHiFTxBZTQa0qkZJWe/VTkAeywrNlG5uvaq8fxY7X9uQY36+gg70ZUO1qf9+8olin+hYA4b/mYstxlr4a8v5288qLdmNHC5Giziuv jsking@ubuntu14.localdomain'
