@@ -20,7 +20,7 @@ cluster.name: {{ ClusterName }}
 #
 # Use a descriptive name for the node:
 #
-node.name: {{ inventory_hostname }}
+node.name: {{ local_hostname }}
 #
 # Add custom attributes to the node:
 #
@@ -53,8 +53,7 @@ path.logs: /var/log/elasticsearch
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
 #fixme
-network.host: {{ ansible_host }}
-#network.host: 0.0.0.0
+network.host: 0.0.0.0
 node.master: true
 #
 # Set a custom port for HTTP:
@@ -69,10 +68,7 @@ node.master: true
 # The default list of hosts is ["127.0.0.1", "[::1]"]
 #
 #discovery.zen.ping.unicast.hosts: ["host1", "host2"]
-# hostvars[host].ansible_default_ipv4.address
-discovery.zen.ping.unicast.hosts: [{% for node in groups['tag_Cluster_app'] %}"{{ node }}"{% if not loop.last %},{% endif %}{% endfor %}]
 #fixme
-#discovery.zen.ping.unicast.hosts: [{% for node in groups['tag_Cluster_app'] %}"{{ hostvars[node].ansible_default_ipv4.address }}"{% if not loop.last %},{% endif %}{% endfor %}]
 # Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 #
 #discovery.zen.minimum_master_nodes: 2
