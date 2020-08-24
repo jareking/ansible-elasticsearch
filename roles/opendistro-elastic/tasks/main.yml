@@ -1,7 +1,7 @@
 ---
 # tasks file for opendistro-elastic
 - name: set the cluster name
-  shell: aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep cluster | awk '{print $5}'
+  shell: /usr/bin/aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep cluster | awk '{print $5}'
   register: ClusterName
 
 - name: add opendistroforelastic repository keys
