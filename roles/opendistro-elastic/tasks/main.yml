@@ -4,6 +4,11 @@
   shell: echo $(/usr/bin/aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep cluster | awk '{print $5}')
   register: ClusterName
 
+- name: set the role 
+  shell: echo $(/usr/bin/aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep role | awk '{print $5}')
+  register: ClusterRole
+
+  
 - name: add opendistroforelastic repository keys
   apt_key:
     url: https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch
