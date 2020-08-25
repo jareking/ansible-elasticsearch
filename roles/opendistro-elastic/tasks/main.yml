@@ -11,6 +11,18 @@
 - name: set the ES_Seed
   shell: /etc/ansible/hosts| jq .tag_ES_Seed_{{ ClusterName.stdout }}_master
   register: ES_Seed 
+
+- name: set the Initial Master Nodes to bootstrap
+  shell: /etc/ansible/hosts| jq ..tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_1
+  register: ES_Seed_1  
+
+- name: set the Initial Master Nodes to bootstrap
+  shell: /etc/ansible/hosts| jq ..tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_2
+  register: ES_Seed_2   
+
+- name: set the Initial Master Nodes to bootstrap
+  shell: /etc/ansible/hosts| jq ..tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_3
+  register: ES_Seed_3    
   
 - name: add opendistroforelastic repository keys
   apt_key:
@@ -18,15 +30,8 @@
     state: present
   become: yes
 
-- name: get ec2 inventory
-  shell: /etc/ansible/hosts
-  register: ec2_inventory
 
-
-- name: Find ES Seed IP addressed
-  debug: msg="{{ ec2_inventory | json_query(jmesquery) }}"
-  vars:
-    jmesquery: ".tag_hostname_elasticsearch_system_master_*"
+  
 
 - name: add openjdk repository 
   apt_repository:
