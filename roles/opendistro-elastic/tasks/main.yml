@@ -13,15 +13,15 @@
   register: ES_Seed 
 
 - name: set the Initial Master Nodes to bootstrap
-  shell: /etc/ansible/hosts| jq ..tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_1
+  shell: /etc/ansible/hosts| jq .tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_1
   register: ES_Seed_1  
 
 - name: set the Initial Master Nodes to bootstrap
-  shell: /etc/ansible/hosts| jq ..tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_2
+  shell: /etc/ansible/hosts| jq .tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_2
   register: ES_Seed_2   
 
 - name: set the Initial Master Nodes to bootstrap
-  shell: /etc/ansible/hosts| jq ..tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_3
+  shell: /etc/ansible/hosts| jq .tag_hostname_elasticsearch_{{ ClusterName.stdout }}_master_3
   register: ES_Seed_3    
   
 - name: add opendistroforelastic repository keys
