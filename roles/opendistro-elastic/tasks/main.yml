@@ -14,7 +14,7 @@
 
 ###hack alert - this is terrible, and should be dns and not this nasty crap  
 - name: set the Initial Master Nodes to bootstrap
-  shell: /etc/ansible/hosts| jq .tag_ES_Seed_{{ ClusterName.stdout }}_master
+  shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_1
   register: ES_Initial_Masters
   
   
