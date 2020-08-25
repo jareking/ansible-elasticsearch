@@ -18,6 +18,17 @@
     state: present
   become: yes
 
+- name: get ec2 inventory
+shell: /etc/hosts
+    return_content: yes
+  register: ec2_inventory
+
+
+- name: Find ES Seed IP addressed
+  debug: msg="{{ ec2_inventory | json_query(jmesquery) }}"
+  vars:
+    jmesquery: ".tag_hostname_elasticsearch_system_master_*"
+
 - name: add openjdk repository 
   apt_repository:
     repo: ppa:openjdk-r/ppa
