@@ -15,7 +15,7 @@
 ###hack alert - this is terrible, and should be dns and not this nasty crap  
 - name: set the Initial Master Nodes to bootstrap
   shell: /etc/ansible/hosts| jq .tag_ES_Seed_{{ ClusterName }}_master
-  register: ES_Seed 
+  register: ES_Initial_Masters
   
   
 - name: add opendistroforelastic repository keys
