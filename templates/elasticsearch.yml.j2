@@ -81,9 +81,9 @@ discovery.seed_hosts: {{ ES_Seed.stdout }}
 #
 #discovery.zen.minimum_master_nodes: 2
 cluster.initial_master_nodes:
-   - "{{ ES_Initial_Masters | ipv4('address') | ipaddr('0') }}"
-   - "{{ ES_Initial_Masters | ipv4('address') | ipaddr('1')) }}"
-   - "{{ ES_Initial_Masters | ipv4('address') | ipaddr('2')) }}"
+   - "{{ ES_Initial_Masters | ipaddr('address') | ipaddr('0') }}"
+   - "{{ ES_Initial_Masters | ipaddr('address') | ipaddr('1')) }}"
+   - "{{ ES_Initial_Masters | ipaddr('address') | ipaddr('2')) }}"
 #
 # For more information, consult the zen discovery module documentation.
 #
