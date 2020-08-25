@@ -81,7 +81,7 @@ discovery.seed_hosts: {{ ES_Seed.stdout }}
 #
 #discovery.zen.minimum_master_nodes: 2
 cluster.initial_master_nodes:
-   - "{{ ES_Seed_1.stdout | ipv4('address') }}""
+   - "{{ ES_Seed_1.stdout }}""
    - "{{ ES_Seed_2.stdout | ipv4('address') }}"
    - "{{ ES_Seed_3.stdout | ipv4('address') }}"
 #
