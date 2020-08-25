@@ -67,7 +67,7 @@ node.data: true
 #
 #http.port: 9200
 #discovery.seed_hosts: ["172.16.10.210", "172.16.10.176", "172.16.10.42" ]
-discovery.seed_hosts: {{ ES_Role }}
+discovery.seed_hosts: {{ ES_Role.stdout }}
 # For more information, consult the network module documentation.
 #
 # --------------------------------- Discovery ----------------------------------
