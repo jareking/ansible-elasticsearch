@@ -29,6 +29,8 @@
       - awscli
       - jq
       - mlocate
+      - python3-pip
+      - python3-boto
 
 - name: configure resolv.conf file
   template:
