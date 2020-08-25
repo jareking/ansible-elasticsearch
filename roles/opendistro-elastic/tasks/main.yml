@@ -8,9 +8,9 @@
   shell: echo $(/usr/bin/aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep role | awk '{print $5}')
   register: ClusterRole
 
-- name: set the ES_role 
-  shell: /etc/ansible/hosts| jq .tag_ES_role_{{ ClusterName.stdout }}_master
-  register: ES_Role 
+- name: set the ES_Seed
+  shell: /etc/ansible/hosts| jq .tag_ES_Seed_{{ ClusterName.stdout }}_master
+  register: ES_Seed 
   
 - name: add opendistroforelastic repository keys
   apt_key:
