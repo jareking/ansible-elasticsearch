@@ -20,7 +20,6 @@
 
 - name: get ec2 inventory
   shell: /etc/hosts
-    return_content: yes
   register: ec2_inventory
 
 
