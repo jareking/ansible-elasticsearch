@@ -55,7 +55,14 @@ path.logs: /var/log/elasticsearch
 #fixme
 network.host: 0.0.0.0
 #{{ ClusterRole.stdout }}
+{% if ClusterRole.stdout == "master" %}
 node.master: true
+node.data: false
+{% else %}
+node.master: false
+node.data: true
+{% endif %}
+#node.master: true
 #
 # Set a custom port for HTTP:
 #
