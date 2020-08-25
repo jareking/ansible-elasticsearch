@@ -9,7 +9,7 @@
   register: ClusterRole
 
 - name: set the ES_role 
-  shell: echo $(/etc/ansible/hosts| jq .tag_ES_role_{{ ClusterName }}_master)
+  shell: /etc/ansible/hosts| jq .tag_ES_role_{{ ClusterName }}_master
   register: ES_Role 
   
 - name: add opendistroforelastic repository keys
