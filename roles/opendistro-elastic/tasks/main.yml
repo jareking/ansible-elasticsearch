@@ -19,7 +19,7 @@
   become: yes
 
 - name: get ec2 inventory
-  shell: /etc/hosts
+  shell: /etc/ansible/hosts
   register: ec2_inventory
 
 
