@@ -14,9 +14,16 @@
 
 ###hack alert - this is terrible, and should be dns and not this nasty crap  
 - name: set the Initial Master Nodes to bootstrap
-  shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_1
-  register: ES_Initial_Masters 
-  
+  shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_1[0]
+  register: ES_Initial_Masters_1 
+
+- name: set the Initial Master Nodes to bootstrap
+  shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_2[0]
+  register: ES_Initial_Masters_2 
+
+- name: set the Initial Master Nodes to bootstrap
+  shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_3[0]
+  register: ES_Initial_Masters_3   
   
 - name: add opendistroforelastic repository keys
   apt_key:
