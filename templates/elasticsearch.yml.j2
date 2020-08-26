@@ -81,9 +81,9 @@ discovery.seed_hosts: {{ ES_Seed.stdout }}
 #
 #discovery.zen.minimum_master_nodes: 2
 cluster.initial_master_nodes:
-  - {{ ES_Initial_Masters_1 }}
-  - {{ ES_Initial_Masters_2 }}
-  - {{ ES_Initial_Masters_3 }}
+  - {{ ES_Initial_Masters_1.stdout }}
+  - {{ ES_Initial_Masters_2.stdout }}
+  - {{ ES_Initial_Masters_3.stdout }}
 
 #
 # For more information, consult the zen discovery module documentation.
