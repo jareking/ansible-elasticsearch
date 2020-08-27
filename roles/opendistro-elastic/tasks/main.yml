@@ -37,9 +37,9 @@
     url: https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch
     state: present
   become: yes
-  wait_for:
-    path: /var/lib/dpkg/lock-frontend
-    state: absent
+  # wait_for:
+  #   path: /var/lib/dpkg/lock-frontend
+  #   state: absent
 
 - name: add openjdk repository
   apt_repository:
