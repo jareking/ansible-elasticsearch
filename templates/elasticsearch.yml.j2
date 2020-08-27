@@ -55,6 +55,8 @@ path.logs: /var/log/elasticsearch
 #fixme
 network.host: 0.0.0.0
 #
+#if it's a master, it shouldn't be a data node
+#if it's a data node, it shouldn't be a master.
 {% if ClusterRole.stdout == "master" %}
 node.master: true
 node.data: false
@@ -102,7 +104,7 @@ gateway.recover_after_nodes: 3
 #
 #action.destructive_requires_name: true
 
-######## Start OpenDistro for Elasticsearch Security Demo Configuration ########
+######## Start OpenDistro for Elasticsearch Security Configuration ########
 # WARNING: revise all the lines below before you go into production
 opendistro_security.ssl.transport.pemcert_filepath: {{ OpendistroSecuritySslTransportPemCertFilepath }} #esnode.pem
 opendistro_security.ssl.transport.pemkey_filepath: {{ OpendistroSecuritySslTransportPemKeyFilePath }} #esnode-key.pem
@@ -116,7 +118,7 @@ opendistro_security.allow_unsafe_democertificates: true
 opendistro_security.allow_default_init_securityindex: true
 #opendistro_security.authcz.admin_dn:
 #  - CN=kirk,OU=client,O=client,L=test, C=de
-#fixme
+#fixme 
 #https://opendistro.github.io/for-elasticsearch-docs/docs/security/configuration/disable/
 opendistro_security.disabled: true
 opendistro_security.audit.type: internal_elasticsearch
@@ -126,4 +128,4 @@ opendistro_security.restapi.roles_enabled: ["all_access", "security_rest_api_acc
 cluster.routing.allocation.disk.threshold_enabled: false
 discovery.zen.minimum_master_nodes: 1
 node.max_local_storage_nodes: 3
-######## End OpenDistro for Elasticsearch Security Demo Configuration ########
+######## End OpenDistro for Elasticsearch Security Configuration ########

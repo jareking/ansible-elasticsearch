@@ -1,40 +1,44 @@
 ---
+#################
+###<blame jareking>
+#################
+
 # tasks file for opendistro-elastic
 - name: set the cluster name
   shell: echo $(/usr/bin/aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep cluster | awk '{print $5}')
   register: ClusterName
 
-- name: set the role 
+- name: set the role
   shell: echo $(/usr/bin/aws ec2 describe-tags --filters "Name=resource-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)" --output=text |grep role | awk '{print $5}')
   register: ClusterRole
 
 - name: set the ES_Seed
   shell: /etc/ansible/hosts| jq .tag_ES_Seed_{{ ClusterName.stdout }}_master
-  register: ES_Seed 
+  register: ES_Seed
 
-###hack alert - this is terrible, and should be dns and not this nasty crap  
-- name: set the Initial Master Nodes to bootstrap
+###hack alert - this is terrible, and should be dns and not this nasty crap
+- name: set the Initial Master Nodes to bootstrap 1
   shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_1[0]
-  register: ES_Initial_Masters_1 
+  register: ES_Initial_Masters_1
 
-- name: set the Initial Master Nodes to bootstrap
+- name: set the Initial Master Nodes to bootstrap 2 
   shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_2[0]
-  register: ES_Initial_Masters_2 
+  register: ES_Initial_Masters_2
 
-- name: set the Initial Master Nodes to bootstrap
+- name: set the Initial Master Nodes to bootstrap 3
   shell: /etc/ansible/hosts| jq .tag_Name_elasticsearch_{{ ClusterName.stdout }}_master_3[0]
-  register: ES_Initial_Masters_3   
-  
+  register: ES_Initial_Masters_3
+#################
+###</blame jareking>
+#################
+
 - name: add opendistroforelastic repository keys
   apt_key:
     url: https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch
     state: present
   become: yes
 
-
-  
-
-- name: add openjdk repository 
+- name: add openjdk repository
   apt_repository:
     repo: ppa:openjdk-r/ppa
     state: present
@@ -53,16 +57,15 @@
     filename: opendistroforelasticsearch.list
   become: yes
 
-
 ########################
 - name: Check if elasticsearch-oss-7.8.0-amd64 is installed
   command: dpkg-query -W elasticsearch-oss
   register: elasticsearch_oss_check_deb
   failed_when: elasticsearch_oss_check_deb.rc > 1
   changed_when: elasticsearch_oss_check_deb.rc == 1
-  
+
 - name: Download elasticsearch_oss
-  get_url: 
+  get_url:
     url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.8.0-amd64.deb"
     dest="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   when: elasticsearch_oss_check_deb.rc == 1
@@ -70,7 +73,7 @@
 - name: Install elasticsearch-oss-7.8.0-amd64
   apt: deb="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   become: yes
-  
+
   #sudo: true
   when: elasticsearch_oss_check_deb.rc == 1
 
@@ -80,7 +83,6 @@
     name: opendistroforelasticsearch
     update_cache: yes
   become: yes
-
 
 - name: configure elasticsearch.yml
   template:
@@ -92,7 +94,7 @@
   become: yes
   register: elasticsearch_configuration
   notify:
-  - elasticsearch restart
+    - elasticsearch restart
 
 # - name: configure elasticsearch password file
 #   template:
@@ -111,4 +113,3 @@
 - name: start elasticsearch service
   service: name=elasticsearch state=started
   become: yes
-
