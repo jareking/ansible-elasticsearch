@@ -31,14 +31,11 @@
 #################
 ###</blame jareking>
 #################
-- name: DPKG - wait for the lock to be released
-  raw: 'sudo lslocks -uo path | grep -E "^(PATH|/var/lib/dpkg/lock|/var/lib/dpkg/lock-frontend)$"'
-  register: result
-  until: result.stdout|trim == "PATH"
-  retries: 300
-  delay: 5
+- name: Wait for automatic system updates
+  become: yes
+  shell: 	while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;
 
-  
+
 - name: add opendistroforelastic repository keys
   apt_key:
     url: https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch
