@@ -65,34 +65,39 @@
 #lvm stuff - data nodes only
 # need to make sure we find and mount any and all nvme devices.
 ########################
-#  - name: Create a volume group on top of /dev/nvme1n1 with physical extent size = 139G
-#    lvg:
-#      vg: vg.elasticsearch
-#      pvs: /dev/nvme1n1
-#      pesize: 139G
-#    when: ansible_facts['hostname'] ~ "data"
+- name: Creates directory
+  file: path=/mnt/data/elasticsearch state=directory
+  when: ansible_facts['hostname'] ~ "data"
 
-# - name: Create a logical volume for elasticsearch
-#   lvol:
-#     vg: vg.elasticsearch
-#     lv: esdata
-#     size: 100%
-#     pvs: /dev/nvme1n1 
-#   when: ansible_facts['hostname'] ~ "data"
+- name: Create a volume group on top of /dev/nvme2n1 with physical extent size = 139G
+  lvg:
+    vg: vg.elasticsearch
+    pvs: /dev/nvme1n1
+    pesize: 139G
+  when: ansible_facts['hostname'] ~ "data"
 
-# - name: create_fs | creating new filesystem on new LVM logical volume(s)
-#   filesystem:
-#     fstype: ext4 #"{{ lv.filesystem }}"
-#     dev: "/dev/vg.elasticsearch/esdata"              ## /dev/{{ vg.vgname }}/{{ lv.lvname }}"
-#     resizefs: yes
-#     opts: lazy_itable_init=1,lazy_journal_init=1
-  
-# - name: Mount up device by label
-#   mount:
-#     path: /mnt/data/elasticsearch
-#     src: LABEL=esdata
-#     fstype: ext4
-#     state: present    
+- name: Create a logical volume for elasticsearch
+  lvol:
+    vg: vg.elasticsearch
+    lv: esdata
+    size: 100%VG
+    pvs: /dev/nvme1n1
+  when: ansible_facts['hostname'] ~ "data"
+
+- name: create_fs | creating new filesystem on new LVM logical volume(s)
+  filesystem:
+    fstype: ext4
+    dev: "/dev/vg.elasticsearch/esdata"
+    resizefs: yes
+  when: ansible_facts['hostname'] ~ "data"
+
+- name: Mount up device by label
+  mount:
+    path: /mnt/data/elasticsearch
+    src: /dev/vg.elasticsearch/esdata
+    fstype: ext4
+    state: present
+  when: ansible_facts['hostname'] ~ "data"
 
 
 ########################
