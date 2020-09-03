@@ -31,19 +31,11 @@
 #################
 ###</blame jareking>
 #################
-- name: Wait for automatic system updates
-  become: yes
-  shell: 	while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;
-
-
 - name: add opendistroforelastic repository keys
   apt_key:
     url: https://d3g5vo6xdbdb9a.cloudfront.net/GPG-KEY-opendistroforelasticsearch
     state: present
   become: yes
-  # wait_for:
-  #   path: /var/lib/dpkg/lock-frontend
-  #   state: absent
 
 - name: add openjdk repository
   apt_repository:
@@ -51,7 +43,11 @@
     state: present
   become: yes
 
-- name: install openjdk
+- name: Wait for automatic system updates
+  become: yes
+  shell: 	while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;  
+
+  - name: install openjdk
   apt:
     name: openjdk-11-jdk
     update_cache: yes
