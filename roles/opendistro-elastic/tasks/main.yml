@@ -65,9 +65,9 @@
 #lvm stuff - data nodes only
 # need to make sure we find and mount any and all nvme devices.
 ########################
+#this has to run on both master and data nodes
 - name: Creates directory
-  file: path=/mnt/data/elasticsearch state=directory
-  when: ansible_facts['hostname'] ~ "data"
+  file: path=/mnt/data/elasticsearch state=directory owner=elasticsearch group=elasticsearch mode=0775 recurse=yes
 
 - name: Create a volume group on top of /dev/nvme2n1 with physical extent size = 139G
   lvg:
