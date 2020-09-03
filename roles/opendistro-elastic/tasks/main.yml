@@ -60,47 +60,7 @@
     filename: opendistroforelasticsearch.list
   become: yes
 
-#should this be moved out to it's own role?
-########################
-#lvm stuff - data nodes only
-# need to make sure we find and mount any and all nvme devices.
-########################
-#this has to run on both master and data nodes
-- name: Creates directory
-  file: path=/mnt/data/elasticsearch state=directory owner=elasticsearch group=elasticsearch mode=0775 recurse=yes
 
-- name: Create a volume group on top of /dev/nvme2n1 with physical extent size = 139G
-  lvg:
-    vg: vg.elasticsearch
-    pvs: /dev/nvme1n1
-    pesize: 139G
-  when: ansible_facts['hostname'] ~ "data"
-
-- name: Create a logical volume for elasticsearch
-  lvol:
-    vg: vg.elasticsearch
-    lv: esdata
-    size: 100%VG
-    pvs: /dev/nvme1n1
-  when: ansible_facts['hostname'] ~ "data"
-
-- name: create_fs | creating new filesystem on new LVM logical volume(s)
-  filesystem:
-    fstype: ext4
-    dev: "/dev/vg.elasticsearch/esdata"
-    resizefs: yes
-  when: ansible_facts['hostname'] ~ "data"
-
-- name: Mount /dev/vg.elasticsearch/esdata at /mnt/data/elasticsearch
-  mount:
-    path: /mnt/data/elasticsearch
-    src: /dev/vg.elasticsearch/esdata
-    fstype: ext4
-    state: mounted
-  when: ansible_facts['hostname'] ~ "data"
-
-
-########################
 - name: Check if elasticsearch-oss-7.8.0-amd64 is installed
   command: dpkg-query -W elasticsearch-oss
   register: elasticsearch_oss_check_deb
@@ -148,6 +108,49 @@
 #     mode: 0644
 #   become: yes
 #   register: elasticsearch_users
+
+#should this be moved out to it's own role?
+########################
+#lvm stuff - data nodes only
+# need to make sure we find and mount any and all nvme devices.
+########################
+#this has to run on both master and data nodes
+- name: Creates directory
+  file: path=/mnt/data/elasticsearch state=directory owner=elasticsearch group=elasticsearch mode=0775 recurse=yes
+
+- name: Create a volume group on top of /dev/nvme2n1 with physical extent size = 139G
+  lvg:
+    vg: vg.elasticsearch
+    pvs: /dev/nvme1n1
+    pesize: 139G
+  when: ansible_facts['hostname'] ~ "data"
+
+- name: Create a logical volume for elasticsearch
+  lvol:
+    vg: vg.elasticsearch
+    lv: esdata
+    size: 100%VG
+    pvs: /dev/nvme1n1
+  when: ansible_facts['hostname'] ~ "data"
+
+- name: create_fs | creating new filesystem on new LVM logical volume(s)
+  filesystem:
+    fstype: ext4
+    dev: "/dev/vg.elasticsearch/esdata"
+    resizefs: yes
+  when: ansible_facts['hostname'] ~ "data"
+
+- name: Mount /dev/vg.elasticsearch/esdata at /mnt/data/elasticsearch
+  mount:
+    path: /mnt/data/elasticsearch
+    src: /dev/vg.elasticsearch/esdata
+    fstype: ext4
+    state: mounted
+  when: ansible_facts['hostname'] ~ "data"
+
+
+########################
+
 
 - name: add elasticsearch service to onboot
   service: name=elasticsearch enabled=yes
