@@ -11,7 +11,7 @@
 - name: read in the hostname
   shell: hostname $(cat /etc/hostname) 
 
-- name: set hosntmae var
+- name: set hostname var
   shell: cat /etc/hostname
   register: local_hostname  
 
