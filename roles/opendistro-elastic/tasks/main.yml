@@ -91,12 +91,12 @@
     resizefs: yes
   when: ansible_facts['hostname'] ~ "data"
 
-- name: Mount up device by label
+- name: Mount /dev/vg.elasticsearch/esdata at /mnt/data/elasticsearch
   mount:
     path: /mnt/data/elasticsearch
     src: /dev/vg.elasticsearch/esdata
     fstype: ext4
-    state: present
+    state: mounted
   when: ansible_facts['hostname'] ~ "data"
 
 
