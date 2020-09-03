@@ -123,7 +123,8 @@
     vg: vg.elasticsearch
     pvs: /dev/nvme1n1
     pesize: 139G
-  when: ansible_facts['hostname'] ~ "data"
+  when: ansible_facts['hostname'] is search("data")
+  
 
 - name: Create a logical volume for elasticsearch
   lvol:
@@ -131,14 +132,14 @@
     lv: esdata
     size: 100%VG
     pvs: /dev/nvme1n1
-  when: ansible_facts['hostname'] ~ "data"
+  when: ansible_facts['hostname'] is search("data")
 
 - name: create_fs | creating new filesystem on new LVM logical volume(s)
   filesystem:
     fstype: ext4
     dev: "/dev/vg.elasticsearch/esdata"
     resizefs: yes
-  when: ansible_facts['hostname'] ~ "data"
+  when: ansible_facts['hostname'] is search("data")
 
 - name: Mount /dev/vg.elasticsearch/esdata at /mnt/data/elasticsearch
   mount:
@@ -146,7 +147,7 @@
     src: /dev/vg.elasticsearch/esdata
     fstype: ext4
     state: mounted
-  when: ansible_facts['hostname'] ~ "data"
+  when: ansible_facts['hostname'] is search("data")
 
 
 ########################
