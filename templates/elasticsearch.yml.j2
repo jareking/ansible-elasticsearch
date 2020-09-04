@@ -20,8 +20,8 @@ cluster.name: {{ ClusterName.stdout }}
 #
 # Use a descriptive name for the node:
 #
-node.name: {{ ansible_facts['hostname'] }}
-#node.name: {{ local_hostname.stdout }}
+#node.name: {{ ansible_facts['hostname'] }}
+node.name: {{ local_hostname.stdout }}
 #
 # Add custom attributes to the node:
 #
