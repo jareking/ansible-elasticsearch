@@ -85,11 +85,18 @@
   when: elasticsearch_oss_check_deb.rc == 1
 
 ########################
+- name: Check if opendistroforelasticsearch is installed
+  command: dpkg-query -W opendistroforelasticsearch
+  register: opendistroforelasticsearch_check_deb
+  failed_when: opendistroforelasticsearch_check_deb.rc > 1
+  changed_when: opendistroforelasticsearch_check_deb.rc == 1
+
 - name: install opendistroforelasticsearch
   apt:
     name: opendistroforelasticsearch
     update_cache: yes
   become: yes
+  when: opendistroforelasticsearch_check_deb.rc == 1
 
 # - name: configure elasticsearch password file
 #   template:
@@ -163,6 +170,13 @@
   notify:
     - elasticsearch restart
 
+- name: remove opendistro-performance-analyzer service to onboot
+  service: name=opendistro-performance-analyzer enabled=no
+  become: yes
+  
+- name: stop opendistro-performance-analyzer service
+  service: name=opendistro-performance-analyzer state=stopped
+  become: yes
 
 - name: add elasticsearch service to onboot
   service: name=elasticsearch enabled=yes
