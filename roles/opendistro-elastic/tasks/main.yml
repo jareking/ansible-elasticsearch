@@ -170,6 +170,18 @@
   notify:
     - elasticsearch restart
 
+- name: configure jvm.options
+  template:
+    src: templates/jvm.options.j2
+    dest: /etc/elasticsearch/jvm.options
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  become: yes
+  register: jvm_configuration
+  notify:
+    - elasticsearch restart
+
 #performance analyzer
 #disabled because it's an unknown at this point.    
 - name: remove opendistro-performance-analyzer service to onboot
