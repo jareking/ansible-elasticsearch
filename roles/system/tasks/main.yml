@@ -109,7 +109,7 @@
 ######
 - name: Setup Chrony to use aws time server
   lineinfile:
-    path: etc/chrony/chrony.conf
+    path: /etc/chrony/chrony.conf
     regexp: 'server 169.254.169.123'
     line: server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
   notify:
