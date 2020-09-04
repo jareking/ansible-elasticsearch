@@ -39,7 +39,7 @@
 
 - name: Wait for automatic system updates
   become: yes
-  shell: 	while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;   
+  shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;   
 
 - name: add openjdk repository
   apt_repository:
@@ -49,7 +49,7 @@
 
 - name: Wait for automatic system updates
   become: yes
-  shell: 	while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;  
+  shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;  
 
 - name: install openjdk
   apt:
@@ -85,18 +85,18 @@
   when: elasticsearch_oss_check_deb.rc == 1
 
 ########################
-# - name: Check if opendistroforelasticsearch is installed
-#   command: dpkg-query -W opendistroforelasticsearch
-#   register: opendistroforelasticsearch_check_deb
-#   failed_when: opendistroforelasticsearch_check_deb.rc > 1
-#   changed_when: opendistroforelasticsearch_check_deb.rc == 1
+- name: Check if opendistroforelasticsearch is installed
+  command: dpkg-query -W opendistroforelasticsearch
+  register: opendistroforelasticsearch_check_deb
+  failed_when: opendistroforelasticsearch_check_deb.rc > 1
+  changed_when: opendistroforelasticsearch_check_deb.rc == 1
 
 - name: install opendistroforelasticsearch
   apt:
     name: opendistroforelasticsearch
     update_cache: yes
   become: yes
-#  when: opendistroforelasticsearch_check_deb.rc == 1
+  when: opendistroforelasticsearch_check_deb.rc == 1
 
 # - name: configure elasticsearch password file
 #   template:
@@ -113,10 +113,6 @@
 #lvm stuff - data nodes only
 # need to make sure we find and mount any and all nvme devices.
 ########################
-#this has to run on both master and data nodes
-- name: Creates directory
-  file: path=/mnt/data/elasticsearch state=directory owner=elasticsearch group=elasticsearch mode=0775 recurse=yes
-
 - name: Create a volume group on top of /dev/nvme2n1 with physical extent size = 139G
   lvg:
     vg: vg.elasticsearch
@@ -148,6 +144,10 @@
     state: mounted
   when: ansible_facts['hostname'] is search("data")
 
+#this has to run on both master and data nodes
+- name: Creates directory
+  file: path=/mnt/data/elasticsearch state=directory owner=elasticsearch group=elasticsearch mode=0775 recurse=yes
+
 
 ########################
 - name: ansible hostname
@@ -170,6 +170,8 @@
   notify:
     - elasticsearch restart
 
+#performance analyzer
+#disabled because it's an unknown at this point.    
 - name: remove opendistro-performance-analyzer service to onboot
   service: name=opendistro-performance-analyzer enabled=no
   become: yes
