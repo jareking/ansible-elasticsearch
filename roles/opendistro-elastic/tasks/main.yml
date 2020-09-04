@@ -64,7 +64,7 @@
     filename: opendistroforelasticsearch.list
   become: yes
 
-
+#we should do a specific version check for upgrades.
 - name: Check if elasticsearch-oss-7.8.0-amd64 is installed
   command: dpkg-query -W elasticsearch-oss
   register: elasticsearch_oss_check_deb
@@ -73,7 +73,7 @@
 
 - name: Download elasticsearch_oss
   get_url:
-    url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.7.0-amd64.deb"
+    url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.8.0-amd64.deb"
     dest="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   when: elasticsearch_oss_check_deb.rc == 1
 
