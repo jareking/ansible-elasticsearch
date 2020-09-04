@@ -1,0 +1,6 @@
+---
+# handlers file for elasticsearch
+
+- name: chrony restart
+  service: name=chrony state=restarted
+  become: yes
