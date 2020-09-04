@@ -143,6 +143,14 @@
 
 
 ########################
+- name: ansible hostname
+  debug:
+    msg: ansible {{ ansible_facts['hostname'] }} 
+
+- name: local hostname 
+  debug: 
+    msg: local_hostname {{ local_hostname.stdout }} 
+
 - name: configure elasticsearch.yml
   template:
     src: templates/elasticsearch.yml.j2
