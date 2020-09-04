@@ -19,8 +19,8 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 # set memory to 80% of total host memory <- this might need to have a max instead.
--Xms{{ ansible_memtotal_mb * 0.8|int|abs }}m
--Xmx{{ ansible_memtotal_mb * 0.8|int|abs }}m
+-Xms{{ ansible_memtotal_mb * 0.8|int }}m
+-Xmx{{ ansible_memtotal_mb * 0.8|int }}m
 
 ################################################################
 ## Expert settings
