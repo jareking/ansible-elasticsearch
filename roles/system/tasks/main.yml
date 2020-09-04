@@ -40,6 +40,9 @@
       - mlocate
       - python3-pip
       - python3-boto
+      - net-tools
+      - bash-completion
+      - zip
 
 #we need to get our aws inventory easily
 - name: configure ec2.py
