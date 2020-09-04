@@ -73,7 +73,7 @@
 
 - name: Download elasticsearch_oss
   get_url:
-    url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.8.0-amd64.deb"
+    url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.9.1-amd64.deb"
     dest="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   when: elasticsearch_oss_check_deb.rc == 1
 
