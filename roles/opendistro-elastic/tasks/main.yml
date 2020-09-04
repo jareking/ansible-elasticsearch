@@ -65,7 +65,7 @@
   become: yes
 
 #we should do a specific version check for upgrades.
-- name: Check if elasticsearch-oss-7.9.1-amd64 is installed
+- name: Check if elasticsearch-oss-7.8.0-amd64 is installed
   command: dpkg-query -W elasticsearch-oss
   register: elasticsearch_oss_check_deb
   failed_when: elasticsearch_oss_check_deb.rc > 1
@@ -73,12 +73,12 @@
 
 - name: Download elasticsearch_oss
   get_url:
-    url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.9.1-amd64.deb"
-    dest="/home/ubuntu/elasticsearch-oss-7.9.1-amd64.deb"
+    url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.8.0-amd64.deb"
+    dest="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   when: elasticsearch_oss_check_deb.rc == 1
 
-- name: Install elasticsearch-oss-7.9.1-amd64
-  apt: deb="/home/ubuntu/elasticsearch-oss-7.9.1-amd64.deb"
+- name: Install elasticsearch-oss-7.8.0-amd64
+  apt: deb="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   become: yes
 
   #sudo: true
