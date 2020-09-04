@@ -43,6 +43,7 @@
       - net-tools
       - bash-completion
       - zip
+      - chrony
 
 #we need to get our aws inventory easily
 - name: configure ec2.py
