@@ -183,6 +183,18 @@
   notify:
     - elasticsearch restart
 
+
+- name: configure telegraf plugin for elasticsearch 
+  template:
+     src: files/telegraf-elasticsearch.conf
+     dest: /etc/telegraf/telegraf.d/elasticsearch.conf
+     owner: telegraf
+     group: telegraf
+     mode: 0644
+  become: yes
+  notify:
+    - telegraf restart
+
 #performance analyzer
 #disabled because it's an unknown at this point.    
 - name: remove opendistro-performance-analyzer service to onboot
