@@ -1,5 +1,6 @@
 [global_tags]
-
+   
+   availability-zone = "{{ ansible_ec2_placement_availability_zone }}"
 
 [agent]
   interval = "10s"
@@ -15,7 +16,6 @@
 
 [[outputs.cloudwatch]]
    region = "{{ ansible_ec2_placement_region   }}"
-   availability-zone = "{{ ansible_ec2_placement_availability_zone }}"
    namespace = "elasticsearch"
 
 
