@@ -24,6 +24,43 @@
     mode: 0642
   become: yes
 
+############
+#
+# install and configure telegraf
+#
+############
+- name: Check if telegraf is installed
+  command: dpkg-query -W telegraf
+  register: telegraf_check_deb
+  failed_when: telegraf_check_deb.rc > 1
+  changed_when: telegraf_check_deb.rc == 1
+
+- name: add influxdb repository keys
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+  become: yes
+  when: telegraf_check_deb.rc == 1
+
+- name: add telegraf repository
+  apt_repository:
+    repo: deb https://repos.influxdata.com/{{ ansible_lsb['id'] }} {{ ansible_lsb['codename'] }} stable
+    state: present
+    filename: influxdb.list
+  become: yes
+  when: telegraf_check_deb.rc == 1
+
+
+- name: Wait for automatic system updates
+  become: yes
+  shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;   
+
+############
+#
+# /telegraf
+#
+############
+
 - name: Wait for automatic system updates
   become: yes
   shell: 	while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;
@@ -44,6 +81,7 @@
       - bash-completion
       - zip
       - chrony
+      - telegraf
 
 #we need to get our aws inventory easily
 - name: configure ec2.py
@@ -148,4 +186,7 @@
     sysctl_set: yes
     state: present
     reload: yes
+
+
+
 
