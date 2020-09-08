@@ -1,4 +1,5 @@
 ---
+#get our info from aws
 - ec2_metadata_facts:
 
 - name: Find our AWS region
@@ -55,8 +56,8 @@
   template:
     src: templates/telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf
-    owner: root
-    group: root
+    owner: telegraf
+    group: telegraf
     mode: 0660
   become: yes
   register: telegraf_configuration
