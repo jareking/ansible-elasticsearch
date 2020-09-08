@@ -1,6 +1,7 @@
 ---
 #################
 ###<blame jareking>
+### https://docs.ansible.com/ansible/latest/modules/ec2_metadata_facts_module.html
 #################
 
 # tasks file for opendistro-elastic

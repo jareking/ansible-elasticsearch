@@ -14,9 +14,8 @@
   omit_hostname = false
 
 [[outputs.cloudwatch]]
-   region = "{{ ansible_facts['region'] }}"
-   availability-zone = "{{ ansible_facts['availability-zone'] }}"
-   availability-zone-id = "{{ ansible_facts['availability-zone-id'] }}
+   region = "{{ ansible_ec2_placement_region   }}"
+   availability-zone = "{{ ansible_ec2_placement_availability_zone }}"
    namespace = "elasticsearch"
 
 
