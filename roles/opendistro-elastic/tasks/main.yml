@@ -61,7 +61,7 @@
   apt_repository:
     repo: deb https://d3g5vo6xdbdb9a.cloudfront.net/apt stable main
     state: present
-    filename: opendistroforelasticsearch.list
+    filename: opendistroforelasticsearch
   become: yes
 
 #we should do a specific version check for upgrades.

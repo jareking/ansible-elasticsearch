@@ -44,9 +44,9 @@
 
 - name: add telegraf repository
   apt_repository:
-    repo: deb https://repos.influxdata.com/{{ ansible_lsb['id'] }} {{ ansible_lsb['codename'] }} stable
+    repo: deb https://repos.influxdata.com/{{ ansible_lsb['id']|lower }} {{ ansible_lsb['codename'] }} stable
     state: present
-    filename: influxdb.list
+    filename: influxdb
   become: yes
   when: telegraf_check_deb.rc == 1
 
