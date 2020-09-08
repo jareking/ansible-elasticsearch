@@ -4,3 +4,8 @@
 - name: chrony restart
   service: name=chrony state=restarted
   become: yes
+
+- name: telegraf restart
+  service: name=telegraf state=restarted
+  become: yes
+

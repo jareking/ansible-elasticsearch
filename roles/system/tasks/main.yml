@@ -50,10 +50,21 @@
   become: yes
   when: telegraf_check_deb.rc == 1
 
-
-- name: Wait for automatic system updates
+- name: configure telegraf.conf
+  template:
+    src: templates/telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: 0660
   become: yes
-  shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;   
+  register: telegraf_configuration
+  notify:
+    - telegraf restart
+
+- name: add telegraf service to onboot
+  service: name=telegraf enabled=yes
+  become: yes
 
 ############
 #
