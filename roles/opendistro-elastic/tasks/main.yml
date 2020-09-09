@@ -212,3 +212,13 @@
 - name: start elasticsearch service
   service: name=elasticsearch state=started
   become: yes
+
+
+- name: cluster health green
+  uri:
+    url: http://localhost:9200/_cluster/health
+    method: GET
+  register: response
+  until: "response.json.status == 'green'"
+  retries: 500
+  delay: 15
