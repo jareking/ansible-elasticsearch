@@ -10,7 +10,7 @@
      #- "vars/{{ Environment }}/main.yml"
    roles:
      - system
-    # - opendistro-elastic
+     - opendistro-elastic
  
 
 #  - name: Maintain OpenDistro Elastic's Kibana Configuration
