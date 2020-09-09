@@ -81,8 +81,6 @@
 - name: Install elasticsearch-oss-7.8.0-amd64
   apt: deb="/home/ubuntu/elasticsearch-oss-7.8.0-amd64.deb"
   become: yes
-
-  #sudo: true
   when: elasticsearch_oss_check_deb.rc == 1
 
 ########################
