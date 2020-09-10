@@ -56,14 +56,14 @@
   command: dpkg-query -W openjdk-11-jdk
   register: openjdk_11_jdk_check_deb
   failed_when: openjdk_11_jdk_check_deb.rc > 1
-  changed_when: openjdk_11_jdk_deb.rc == 1
+  changed_when: openjdk_11_jdk_check_deb.rc == 1
 
 - name: install openjdk
   apt:
     name: openjdk-11-jdk
     update_cache: yes
   become: yes
-  when: openjdk_11_jdk_deb.rc == 1
+  when: openjdk_11_jdk_check_deb.rc == 1
   register: openjdk_response
   until: "'success' in openjdk_reponse.stdout"
   retries: 20
