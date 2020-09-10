@@ -67,9 +67,9 @@
   #when: openjdk_11_jdk_check_deb.rc == 1
   
 
-- name: openjdk_response
-  debug: 
-    msg: openjdk_reponse is {{ openjdk_reponse.stdout }} 
+#- name: openjdk_response
+#  debug: 
+#    msg: openjdk_reponse is {{ openjdk_reponse.stdout }} 
 #  until: "'success' in openjdk_reponse.stdout"
 #  retries: 20
 #  delay: 15
