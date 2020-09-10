@@ -40,7 +40,7 @@
 
 - name: Wait for automatic system updates
   become: yes
-  shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;   
+  shell: while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;   
 
 - name: add openjdk repository
   apt_repository:
@@ -50,13 +50,25 @@
 
 - name: Wait for automatic system updates
   become: yes
-  shell: while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;  
+  shell: while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done;  
+
+- name: Check if openjdk-11-jdk is installed
+  command: dpkg-query -W openjdk-11-jdk
+  register: openjdk-11-jdk_check_deb
+  failed_when: openjdk-11-jdk_check_deb.rc > 1
+  changed_when: openjdk-11-jdk_deb.rc == 1
 
 - name: install openjdk
   apt:
     name: openjdk-11-jdk
     update_cache: yes
   become: yes
+  when: openjdk-11-jdk_deb.rc == 1
+  register: openjdk_response
+  until: 'success' in openjdk_reponse.stdout
+  retries: 20
+  delay: 15
+
 
 - name: add opendistro elastic repository
   apt_repository:
