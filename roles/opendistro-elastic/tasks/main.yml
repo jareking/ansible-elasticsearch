@@ -65,6 +65,8 @@
   become: yes
   when: openjdk_11_jdk_check_deb.rc == 1
   register: openjdk_response
+
+- name: openjdk_response
   debug: 
   msg: openjdk_reponse is {{ openjdk_reponse.stdout }} 
 #  until: "'success' in openjdk_reponse.stdout"
