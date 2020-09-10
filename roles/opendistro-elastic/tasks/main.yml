@@ -229,12 +229,12 @@
 
 
 - name: cluster health green
-   uri:
+  uri:
      url: http://localhost:9200/_cluster/health
      method: GET
-   register: cluster_health_response
-   debug:
-      meg: cluster health is {{ cluster_health_response.json.status}}
+  register: cluster_health_response
+  debug:
+     msg: cluster health is {{ cluster_health_response.json.status}}
 #   until: "response.json.status == 'green'"
 #   retries: 500
 #   delay: 15
