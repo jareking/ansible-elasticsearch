@@ -1,7 +1,7 @@
 ---
 # handlers file for elasticsearch
 
-- name: elasticsearch restart
+- name: elasticsearch restart bootstrap
   service: name=elasticsearch state=restarted
   become: yes
   when: 

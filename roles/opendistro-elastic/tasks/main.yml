@@ -62,9 +62,8 @@
   apt:
     name: openjdk-11-jdk
     update_cache: yes
-  register: openjdk_response
   become: yes
-  #when: openjdk_11_jdk_check_deb.rc == 1
+  when: openjdk_11_jdk_check_deb.rc == 1
   
 
 #- name: openjdk_response
@@ -184,7 +183,7 @@
   become: yes
   register: elasticsearch_configuration
   notify:
-    - elasticsearch restart
+    - elasticsearch restart bootstrap
 
 - name: configure jvm.options
   template:
@@ -196,7 +195,7 @@
   become: yes
   register: jvm_configuration
   notify:
-    - elasticsearch restart
+    - elasticsearch restart bootstrap
 
 
 - name: configure telegraf plugin for elasticsearch 
@@ -229,11 +228,13 @@
   become: yes
 
 
-# - name: cluster health green
-#   uri:
-#     url: http://localhost:9200/_cluster/health
-#     method: GET
-#   register: response
+- name: cluster health green
+   uri:
+     url: http://localhost:9200/_cluster/health
+     method: GET
+   register: cluster_health_response
+   debug:
+      meg: cluster health is {{ cluster_health_response.json.status}}
 #   until: "response.json.status == 'green'"
 #   retries: 500
 #   delay: 15
