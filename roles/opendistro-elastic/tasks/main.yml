@@ -65,7 +65,7 @@
   become: yes
   when: openjdk-11-jdk_deb.rc == 1
   register: openjdk_response
-  until: 'success' in openjdk_reponse.stdout
+  until: "'success' in openjdk_reponse.stdout"
   retries: 20
   delay: 15
 
