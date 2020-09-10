@@ -62,9 +62,10 @@
   apt:
     name: openjdk-11-jdk
     update_cache: yes
-  become: yes
-  when: openjdk_11_jdk_check_deb.rc == 1
   register: openjdk_response
+  become: yes
+  #when: openjdk_11_jdk_check_deb.rc == 1
+  
 
 - name: openjdk_response
   debug: 
