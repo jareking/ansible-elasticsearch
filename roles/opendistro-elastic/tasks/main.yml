@@ -65,9 +65,11 @@
   become: yes
   when: openjdk_11_jdk_check_deb.rc == 1
   register: openjdk_response
-  until: "'success' in openjdk_reponse.stdout"
-  retries: 20
-  delay: 15
+  debug: 
+  msg: openjdk_reponse is {{ openjdk_reponse.stdout }} 
+#  until: "'success' in openjdk_reponse.stdout"
+#  retries: 20
+#  delay: 15
 
 
 - name: add opendistro elastic repository
