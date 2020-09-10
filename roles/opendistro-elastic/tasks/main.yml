@@ -68,7 +68,7 @@
 
 - name: openjdk_response
   debug: 
-  msg: openjdk_reponse is {{ openjdk_reponse.stdout }} 
+    msg: openjdk_reponse is {{ openjdk_reponse.stdout }} 
 #  until: "'success' in openjdk_reponse.stdout"
 #  retries: 20
 #  delay: 15
