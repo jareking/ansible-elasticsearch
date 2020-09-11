@@ -4,6 +4,7 @@
 ### https://docs.ansible.com/ansible/latest/modules/ec2_metadata_facts_module.html
 #################
 
+#if the file exists the play will stop immediately.
 - name: Check that the ansible-lock exists
   stat:
     path: /ansible-lock
@@ -11,7 +12,6 @@
 
 - name: STOP - if ansible-lock exists
   meta: end_host
-  # msg="ansible-lock exists"
   when: ansible_lock_initial_result.stat.exists
 
 
@@ -244,9 +244,9 @@
   service: name=elasticsearch enabled=yes
   become: yes
 
-- name: start elasticsearch service
-  service: name=elasticsearch state=started
-  become: yes
+#- name: start elasticsearch service
+#  service: name=elasticsearch state=started
+#  become: yes
 
 
 #- name: cluster health green
