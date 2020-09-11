@@ -251,4 +251,4 @@
 #   delay: 15
 
 - name: Remove ansible-locl file
-  file: path: /ansible-lock state: absent
+  file: path=/ansible-lock state=absent
