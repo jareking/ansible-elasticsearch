@@ -251,7 +251,7 @@
 
 
 - name: cluster health green
-  uri: url= http://localhost:9200/_cluster/health method=GET
+  uri: url=http://localhost:9200/_cluster/health method=GET
   register: cluster_health_response
 #  debug:
 #     msg: cluster health is {{ cluster_health_response.json.status}}
