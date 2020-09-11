@@ -7,11 +7,13 @@
 - name: Check that the ansible-lock exists
   stat:
     path: /ansible-lock
-  register: ansible_lock_result
+  register: ansible_lock_initial_result
+
 
 - name: Creates lock file if it doesnt exist
   file: path=/ansible-lock state=touch owner=root group=root mode=0775
-  when: not ansible_lock_result.stat.exists
+  when: not ansible_lock_initial_result.stat.exists
+
 ##################
 
 # tasks file for opendistro-elastic
@@ -258,5 +260,5 @@
 #   retries: 500
 #   delay: 15
 
-- name: Remove ansible-locl file
+- name: Remove ansible-lock file
   file: path=/ansible-lock state=absent
