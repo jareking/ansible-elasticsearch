@@ -265,3 +265,9 @@
 #https://stackoverflow.com/questions/31618967/how-do-i-write-an-ansible-handler-with-multiple-tasks#31618968
 - name: Remove ansible-lock file
   file: path=/var/lock/ansible-lock state=absent
+
+- dynamodb_table:
+    name: elasticsearch-system
+    region: us-east-1
+    read_capacity: 10
+    write_capacity: 10
