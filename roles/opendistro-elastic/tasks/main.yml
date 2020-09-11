@@ -271,3 +271,11 @@
     region: us-east-1
     read_capacity: 10
     write_capacity: 10
+    indexes:
+      - name: ansible_lock
+        type: global_include
+        hash_key_name: id
+        range_key_name: create_time
+        includes:
+          - other_field
+          - other_field2
