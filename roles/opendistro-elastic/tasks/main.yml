@@ -4,7 +4,7 @@
 ### https://docs.ansible.com/ansible/latest/modules/ec2_metadata_facts_module.html
 #################
 - name: Creates lock file
-  file: path=/ansible-lock state=file owner=root group=root mode=0775
+  file: path=/ansible-lock state=touch owner=root group=root mode=0775
 
 # tasks file for opendistro-elastic
 - name: set the cluster name
