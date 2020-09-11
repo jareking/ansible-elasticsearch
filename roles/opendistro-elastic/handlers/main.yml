@@ -4,6 +4,6 @@
 - name: elasticsearch restart
   service: name=elasticsearch state=restarted
   become: yes
-  #when: 
-  #  ( openjdk_11_jdk_check_deb.rc == 1 and elasticsearch_oss_check_deb.rc == 1 ) or
-  #  ( cluster_health_response.json.status == 'green')
+  when: 
+    ( openjdk_11_jdk_check_deb.rc == 1 and elasticsearch_oss_check_deb.rc == 1 ) #or
+  #  ( cluster_health_response.json.status == 'green' and not ansible_lock_initial_result.stat.exists)
