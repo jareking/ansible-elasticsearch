@@ -165,6 +165,10 @@
 
 
 ########################
+- name: ec2 hostname
+  debug:
+    msg: ec2 {{ ansible_ec2_placement_availability_zone }} 
+
 - name: ansible hostname
   debug:
     msg: ansible {{ ansible_facts['hostname'] }} 
@@ -228,11 +232,11 @@
   become: yes
 
 
-#- name: cluster health green
-#  uri: url= http://localhost:9200/_cluster/health method=GET
-#  register: cluster_health_response
-#  debug:
-#     msg: cluster health is {{ cluster_health_response.json.status}}
+- name: cluster health green
+  uri: url= http://localhost:9200/_cluster/health method=GET
+  register: cluster_health_response
+  debug:
+     msg: cluster health is {{ cluster_health_response.json.status}}
 #   until: "response.json.status == 'green'"
 #   retries: 500
 #   delay: 15
