@@ -10,7 +10,7 @@
   register: ansible_lock_initial_result
 
 - name: STOP - if ansible-lock exists
-  fail: ansible-lock exists
+  fail: msg="ansible-lock exists"
   when: ansible_lock_initial_result.stat.exists
 
 
