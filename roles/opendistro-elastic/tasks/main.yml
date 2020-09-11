@@ -3,8 +3,16 @@
 ###<blame jareking>
 ### https://docs.ansible.com/ansible/latest/modules/ec2_metadata_facts_module.html
 #################
-- name: Creates lock file
+
+- name: Check that the ansible-lock exists
+  stat:
+    path: /ansible-lock
+    register: ansible_lock_result
+
+- name: Creates lock file if it doesnt exist
   file: path=/ansible-lock state=touch owner=root group=root mode=0775
+  when: not ansible_lock_result.stat.exists
+##################
 
 # tasks file for opendistro-elastic
 - name: set the cluster name
