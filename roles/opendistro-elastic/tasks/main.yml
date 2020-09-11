@@ -267,7 +267,7 @@
   file: path=/var/lock/ansible-lock state=absent
 
 - dynamodb_table:
-    name: elasticsearch-system
+    name: elasticsearch-system1
     region: us-east-1
     read_capacity: 10
     write_capacity: 10
