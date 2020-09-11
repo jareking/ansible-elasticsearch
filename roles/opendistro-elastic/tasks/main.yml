@@ -9,6 +9,10 @@
     path: /ansible-lock
   register: ansible_lock_initial_result
 
+- name: STOP - if ansible-lock exists
+  fail: ansible-lock exists
+  when: ansible_lock_initial_result.stat.exists
+
 
 - name: Creates lock file if it doesnt exist
   file: path=/ansible-lock state=touch owner=root group=root mode=0775
@@ -260,5 +264,6 @@
 #   retries: 500
 #   delay: 15
 
+#https://stackoverflow.com/questions/31618967/how-do-i-write-an-ansible-handler-with-multiple-tasks#31618968
 - name: Remove ansible-lock file
   file: path=/ansible-lock state=absent
