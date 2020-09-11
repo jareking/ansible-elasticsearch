@@ -9,9 +9,10 @@
     path: /ansible-lock
   register: ansible_lock_initial_result
 
-#- name: STOP - if ansible-lock exists
-#  fail: msg="ansible-lock exists"
-#  when: ansible_lock_initial_result.stat.exists
+- name: STOP - if ansible-lock exists
+  meta: end_host
+  # msg="ansible-lock exists"
+  when: ansible_lock_initial_result.stat.exists
 
 
 - name: Creates lock file if it doesnt exist
