@@ -260,6 +260,7 @@
 - name: cluster status
   debug:
     msg: cluster health is {{ cluster_health_response.json.status}}
+  ignore_errors: True
 #   until: "cluster_health_response.json.status == 'green'"
 #   retries: 500
 #   delay: 15
