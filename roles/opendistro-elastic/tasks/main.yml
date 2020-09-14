@@ -4,20 +4,21 @@
 ### https://docs.ansible.com/ansible/latest/modules/ec2_metadata_facts_module.html
 #################
 
+
 #if the file exists the play will stop immediately.
-- name: Check that the ansible-lock exists
-  stat:
-    path: /var/lock/ansible-lock
-  register: ansible_lock_initial_result
+# - name: Check that the ansible-lock exists
+#   stat:
+#     path: /var/lock/ansible-lock
+#   register: ansible_lock_initial_result
 
-- name: STOP - if ansible-lock exists
-  meta: end_host
-  when: ansible_lock_initial_result.stat.exists
+# - name: STOP - if ansible-lock exists
+#   meta: end_host
+#   when: ansible_lock_initial_result.stat.exists
 
 
-- name: Creates lock file if it doesnt exist
-  file: path=/var/lock/ansible-lock state=touch owner=root group=root mode=0775
-  when: not ansible_lock_initial_result.stat.exists
+# - name: Creates lock file if it doesnt exist
+#   file: path=/var/lock/ansible-lock state=touch owner=root group=root mode=0775
+#   when: not ansible_lock_initial_result.stat.exists
 
 ##################
 
@@ -263,8 +264,8 @@
 
 
 #https://stackoverflow.com/questions/31618967/how-do-i-write-an-ansible-handler-with-multiple-tasks#31618968
-- name: Remove ansible-lock file
-  file: path=/var/lock/ansible-lock state=absent
+# - name: Remove ansible-lock file
+#   file: path=/var/lock/ansible-lock state=absent
 
 - dynamodb_table:
     name: elasticsearch-system1
