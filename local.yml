@@ -25,7 +25,8 @@
   #       when: "{{force_ignore_lock}}"
 
        - file: path={{lock_file_path}} state=touch
-         sudo: yes
+         become: yes
+
       
        - name: cluster health green
          uri: url=http://localhost:9200/_cluster/health method=GET
@@ -44,4 +45,4 @@
 
    post_tasks:
        - file: path={{lock_file_path}} state=absent
-         sudo: yes
+         become: yes
