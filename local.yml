@@ -14,34 +14,29 @@
      lock_file_path: /tmp/ansible-playbook.lock
 
    pre_tasks: 
-       - stat: path={{lock_file_path}}
+       - name: register lock file
+         stat: path={{lock_file_path}}
          register: lock_file
 
-       - fail: msg="Sorry, I found a lockfile, Add -f to your deploy command to forcefully continue deploying, if the previous deploy was aborted."
+       - name: test of lock file  
+         fail: msg="Sorry, I found a lockfile, Add -f to your deploy command to forcefully continue deploying, if the previous deploy was aborted."
          when: lock_file.stat.exists|bool and not force_ignore_lock|bool
 
   #     - file: path={{lock_file_path}} state=absent
   #       sudo: yes
   #       when: "{{force_ignore_lock}}"
 
-       - file: path={{lock_file_path}} state=touch
+       - name: create lock file 
+         file: path={{lock_file_path}} state=touch
          become: yes
 
-      
-       - name: cluster health green
+       - name: Wait for cluster health to return to yellow or green
          uri: url=http://localhost:9200/_cluster/health method=GET
          register: cluster_health_response
-         ignore_errors: True
-        #  debug:
-        #     msg: cluster health is {{ cluster_health_response.json.status}}
-        #   until: "response.json.status == 'green'"
-        #   retries: 500
-        #   delay: 15
-
-       - name: cluster status
-         debug:
-           msg: cluster health is {{ cluster_health_response.json.status}}
-         ignore_errors: True
+         until: "cluster_health_response.json.status == 'yellow' or response.json.status == 'green'"
+         retries: 500
+         delay: 15
+         ignore_errors: True  
 
    post_tasks:
        - file: path={{lock_file_path}} state=absent
