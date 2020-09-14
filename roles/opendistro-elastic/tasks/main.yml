@@ -247,36 +247,36 @@
   ignore_errors: True
 
 
-- name: cluster health green
-  uri: url=http://localhost:9200/_cluster/health method=GET
-  register: cluster_health_response
-  ignore_errors: True
-#  debug:
-#     msg: cluster health is {{ cluster_health_response.json.status}}
-#   until: "response.json.status == 'green'"
-#   retries: 500
-#   delay: 15
+# - name: cluster health green
+#   uri: url=http://localhost:9200/_cluster/health method=GET
+#   register: cluster_health_response
+#   ignore_errors: True
+# #  debug:
+# #     msg: cluster health is {{ cluster_health_response.json.status}}
+# #   until: "response.json.status == 'green'"
+# #   retries: 500
+# #   delay: 15
 
-- name: cluster status
-  debug:
-    msg: cluster health is {{ cluster_health_response.json.status}}
-  ignore_errors: True
+# - name: cluster status
+#   debug:
+#     msg: cluster health is {{ cluster_health_response.json.status}}
+#   ignore_errors: True
 
 
 #https://stackoverflow.com/questions/31618967/how-do-i-write-an-ansible-handler-with-multiple-tasks#31618968
 # - name: Remove ansible-lock file
 #   file: path=/var/lock/ansible-lock state=absent
 
-- dynamodb_table:
-    name: elasticsearch-system1
-    region: us-east-1
-    read_capacity: 10
-    write_capacity: 10
-    indexes:
-      - name: ansible_lock
-        type: global_include
-        hash_key_name: id
-        range_key_name: create_time
-        includes:
-          - other_field
-          - other_field2
+# - dynamodb_table:
+#     name: elasticsearch-system1
+#     region: us-east-1
+#     read_capacity: 10
+#     write_capacity: 10
+#     indexes:
+#       - name: ansible_lock
+#         type: global_include
+#         hash_key_name: id
+#         range_key_name: create_time
+#         includes:
+#           - other_field
+#           - other_field2
