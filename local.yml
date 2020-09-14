@@ -11,7 +11,7 @@
      - opendistro-elastic
 
    vars:
-     lock_file_path=/tmp/ansible-playbook-{{ansible_ssh_user}}.lock
+     lock_file_path=/tmp/ansible-playbook.lock
 
    pre_tasks: 
       - stat: path={{lock_file_path}}
