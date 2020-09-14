@@ -19,10 +19,10 @@
          register: red_cluster_health_response
          ignore_errors: True
 
-      #  - name: Stop if cluster is red
-      #    meta: end_host
-      #    when: "red_cluster_health_response.json.status == 'red'"
-      #    ignore_errors: True
+       - name: Stop if cluster is red
+         meta: end_host
+         when: "red_cluster_health_response.json.status == 'red'"
+         ignore_errors: True
 
 
        - name: register lock file
