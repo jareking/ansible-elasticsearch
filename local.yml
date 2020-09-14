@@ -13,15 +13,27 @@
    vars:
      lock_file_path: /tmp/ansible-playbook.lock
 
-   pre_tasks: 
+   pre_tasks:
+       - name: Check if cluster is red
+         uri: url=http://localhost:9200/_cluster/health method=GET
+         register: red_cluster_health_response
+         ignore_errors: True
+
+       - name: Stop if cluster is red
+         meta: end_host
+         when: "red_cluster_health_response.json.status == 'red'"
+         ignore_errors: True
+
+
        - name: register lock file
          stat: path={{lock_file_path}}
          register: lock_file
 
-       - name: test of lock file  
-         fail: msg="Sorry, I found a lockfile, Add -f to your deploy command to forcefully continue deploying, if the previous deploy was aborted."
-         when: lock_file.stat.exists|bool and not force_ignore_lock|bool
+      - name: test for lock file  
+        fail: msg="STOP  found a lockfile"
+        when: lock_file.stat.exists|bool and not force_ignore_lock|bool
 
+  # setup an override option
   #     - file: path={{lock_file_path}} state=absent
   #       sudo: yes
   #       when: "{{force_ignore_lock}}"
