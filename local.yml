@@ -38,10 +38,10 @@
         #   retries: 500
         #   delay: 15
 
-       - name: cluster status
-         debug:
-         msg: cluster health is {{ cluster_health_response.json.status}}
-         ignore_errors: True
+      #  - name: cluster status
+      #    debug:
+      #    msg: cluster health is {{ cluster_health_response.json.status}}
+      #    ignore_errors: True
 
    post_tasks:
        - file: path={{lock_file_path}} state=absent
