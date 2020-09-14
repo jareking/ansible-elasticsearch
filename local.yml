@@ -29,9 +29,9 @@
          stat: path={{lock_file_path}}
          register: lock_file
 
-      - name: test for lock file  
-        fail: msg="STOP  found a lockfile"
-        when: lock_file.stat.exists|bool and not force_ignore_lock|bool
+       - name: test for lock file  
+         fail: msg="STOP  found a lockfile"
+         when: lock_file.stat.exists|bool and not force_ignore_lock|bool
 
   # setup an override option
   #     - file: path={{lock_file_path}} state=absent
